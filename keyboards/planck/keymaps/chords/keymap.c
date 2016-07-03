@@ -14,22 +14,31 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _PLOVER 5
-#define _ADJUST 16
-#define _DIGITS 17
+#define   _QWERTY    0
+#define   _COLEMAK   1
+#define   _DVORAK    2
+#define   _LOWER     3
+#define   _RAISE     4
+#define   _PLOVER    5
+#define   _ADJUST    16
+#define   _DIGITS    20
+#define   _FUNCTIONS 21
+#define   _SYMBOLS   22
+
+#define   EVAL_D    100
+#define   EVAL_S    101
+#define EVAL_BACKLIT 110
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
   PLOVER,
-  LOWER,
+  DIGITS,
+  FUNCTIONS,
+  SYMBOLS,
   RAISE,
+  LOWER,
   BACKLIT,
   EXT_PLV
 };
@@ -185,7 +194,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY} */
 /* }, */
 
+};
 
+const uint16_t PROGMEM fn_actions[] = {
+  [1] = ACTION_MODS_KEY(MOD_LSFT, KC_1),             // !
+  [2] = ACTION_MODS_KEY(MOD_LSFT, KC_2),             // @
+  [3] = ACTION_MODS_KEY(MOD_LSFT, KC_3),             // #
+  [4] = ACTION_MODS_KEY(MOD_LSFT, KC_4),             // $
+  [5] = ACTION_MODS_KEY(MOD_LSFT, KC_5),             // %
+  [6] = ACTION_MODS_KEY(MOD_LSFT, KC_6),             // ^
+  [7] = ACTION_MODS_KEY(MOD_LSFT, KC_7),             // &
+  [8] = ACTION_MODS_KEY(MOD_LSFT, KC_8),             // *
+  [9] = ACTION_MODS_KEY(MOD_LSFT, KC_9),             // (
+  [10] =ACTION_MODS_KEY(MOD_LSFT, KC_0),             // )
+  [EVAL_D]  =  ACTION_LAYER_TAP_KEY(_DIGITS, KC_D),  // _DIGITS or D
+  [EVAL_S]  =  ACTION_LAYER_TAP_KEY(_SYMBOLS, KC_S), // _SYMBOLS or S
+  [EVAL_BACKLIT]  =  ACTION_BACKLIGHT_STEP()         //
 };
 
 #ifdef AUDIO_ENABLE
