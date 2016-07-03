@@ -25,7 +25,6 @@ extern keymap_config_t keymap_config;
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  DIGITS,
   COLEMAK,
   DVORAK,
   PLOVER,
@@ -49,17 +48,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Ctrl | Brite| Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LCTL, BACKLIT, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
-/* Digits
+/* LOWER
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |   7  |   8  |   9  |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -67,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |   1  |   2  |   3  |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |             |   0  |  00  |   .  |      |      |
+ * |      |      |      |      |      |    Bksp     |   0  |  00  |   .  |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  */
-[_DIGITS] = {
+[_LOWER] = {
   {_______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    _______, _______,},
   {_______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6,    _______, _______,},
   {_______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,    _______, _______,},
-  {_______, _______, _______, _______, _______, _______, _______, KC_0,    KC_0,    KC_DOT,  _______, _______,}
+  {_______, _______, _______, _______, _______, KC_BSPC, KC_BSPC, KC_0,    KC_0,    KC_DOT,  _______, _______,}
 },
 
 /* Colemak
