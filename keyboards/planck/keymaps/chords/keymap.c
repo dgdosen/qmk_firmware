@@ -11,26 +11,24 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define   _QWERTY    0
-#define   _COLEMAK   1
-#define   _DVORAK    2
-#define   _ADJUST    16
-#define   _DIGITS    20
-#define   _FUNCTIONS 21
-#define   _SYMBOLS   22
+#define _QWERTY    0
+#define _COLEMAK   1
+#define _DVORAK    2
+#define _ADJUST    16
+#define _DIGITS    20
+#define _FUNCTIONS 21
+#define _SYMBOLS   22
+#define _BRACES    23
+#define _WINDOWS   24
 
-#define   EVAL_D    100
-#define   EVAL_S    101
-#define EVAL_BACKLIT 110
+#define EV_D    100
+#define EV_S    101
+#define EV_B    102
+#define EV_F    103
+#define EV_W    104
 
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  DIGITS,
-  FUNCTIONS,
-  SYMBOLS
-};
+#define EV_L    110
+#define EV_C    111
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -40,41 +38,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * | Ct/T |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Brite| Alt  | GUI  |Bksp  |    Space    |Enter | Left | Down |  Up  |Right |
+ * | Brite| Ctrl | Alt  | GUI  |Bksp  |    Space    |Enter | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {KC_ESC,  KC_A,    F(EVAL_S), F(EVAL_D),    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LCTL, F(EVAL_BACKLIT), KC_LALT, KC_LGUI, KC_BSPC,   KC_SPC,  KC_SPC,  KC_ENT,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_ESC,  KC_Q,    F(EV_W),    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
+  {F(EV_C), KC_A,   F(EV_S), F(EV_D), F(EV_F),    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V, F(EV_B),    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_RSFT},
+  {F(EV_L), KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC,   KC_SPC,  KC_SPC,  KC_ENT,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
-/* DIGITS
+/* Digits
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |   7  |   8  |   9  |      |      |
+ * |      |      |      |      |      |      |      |   7  |   8  |   9  |  /   |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   4  |   5  |   6  |      |      |
+ * |      |      |      |      |      |      |      |   4  |   5  |   6  |  *   |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   1  |   2  |   3  |      |      |
+ * |      |      |      |      |      |      |      |   1  |   2  |   3  |  -   |  =   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |             |   0  |  00  |   .  |      |      |
+ * |      |      |      |      |      |             |   0  |  00  |   .  |  +   |Enter |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  */
 [_DIGITS] = {
-  {_______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6,    _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,    _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, KC_0,    KC_0,    KC_DOT,  _______, _______}
+  {_______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    KC_SLSH, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6,    KC_ASTR, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,    KC_MINS, KC_EQL },
+  {_______, _______, _______, _______, _______, _______, _______, KC_0,    KC_0,    KC_DOT,  KC_PLUS, KC_ENT }
 },
 
-/* FUNCTIONS
+/* Functions
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |  F7  |  F8  |  F9  |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -92,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, KC_F10,  KC_F11,  KC_F12,  _______, _______}
 },
 
-/* SYMBOLS
+/* Symbols
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |  &   |  *   |  (   |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -104,10 +102,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  */
 [_SYMBOLS] = {
-  {_______, _______, _______, _______, _______, _______, _______, F(7),    F(8),    F(9),    _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, F(4),    F(5),    F(6),    _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, F(1),    F(2),    F(3),    _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, F(0),    _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, _______, _______, KC_AMPR, KC_ASTR, KC_LPRN, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_DLR,  KC_PERC, KC_CIRC, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_EXLM, KC_AT,   KC_HASH, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_RPRN, _______, _______, _______, _______}
+},
+
+/* Braces
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |  ~   |  `   |  _   |  =   |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  {   |  }   |  |   |  \   |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  [   |  ]   |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ */
+[_BRACES] = {
+  {_______, _______, _______, _______, _______, _______, _______, KC_TILD, KC_GRV,  KC_UNDS, KC_EQL , _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, KC_PIPE, KC_BSLS, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Windows (Desktops)
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |  D7  |  D8  |  D9  |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  D4  |  D5  |  D6  |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  D1  |  D2  |  D3  |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |             |  D10 |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ */
+[_WINDOWS] = {
+  {_______, _______, _______, _______, _______, _______, _______, F(27),   F(28),  F(29),   _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, F(24),   F(25),  F(26),   _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, F(21),   F(22),  F(23),   _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, F(20),  _______, _______, _______, _______}
 },
 
 /* Colemak
@@ -118,14 +152,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Brite| Alt  | GUI  |Bksp  |    Space    |Enter | Left | Down |  Up  |Right |
+ * | Brite| Ctrl | Alt  | GUI  |Bksp  |    Space    |Enter | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LCTL, F(EVAL_BACKLIT), KC_LALT, KC_LGUI, KC_BSPC,   KC_SPC,  KC_SPC,  KC_ENT,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {F(EV_L), KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC,   KC_SPC,  KC_SPC,  KC_ENT,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Dvorak
@@ -136,14 +170,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Brite| Alt  | GUI  |Bksp  |    Space    |Enter | Left | Down |  Up  |Right |
+ * | Brite| Ctrl | Alt  | GUI  |Bksp  |    Space    |Enter | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-  {KC_LCTL, F(EVAL_BACKLIT), KC_LALT, KC_LGUI, KC_BSPC,   KC_SPC,  KC_SPC,  KC_ENT,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {F(EV_L), KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC,   KC_SPC,  KC_SPC,  KC_ENT,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Adjust (Lower + Raise)
@@ -159,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______,  _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _QWERTY,  _COLEMAK, _DVORAK,  _______,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -177,9 +211,24 @@ const uint16_t PROGMEM fn_actions[] = {
   [7] = ACTION_MODS_KEY(MOD_LSFT, KC_7),             // &
   [8] = ACTION_MODS_KEY(MOD_LSFT, KC_8),             // *
   [9] = ACTION_MODS_KEY(MOD_LSFT, KC_9),             // (
-  [10] =ACTION_MODS_KEY(MOD_LSFT, KC_0),             // )
-  [EVAL_D]  =  ACTION_LAYER_TAP_KEY(_DIGITS, KC_D),  // _DIGITS or D
-  [EVAL_S]  =  ACTION_LAYER_TAP_KEY(_SYMBOLS, KC_S), // _SYMBOLS or S
-  [EVAL_BACKLIT]  =  ACTION_BACKLIGHT_STEP()         //
+  [10] = ACTION_MODS_KEY(MOD_LSFT, KC_0),             // )
+  [20] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_0),  // mac desktop
+  [21] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_1),  // mac desktop
+  [22] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_2),  // mac desktop
+  [23] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_3),  // mac desktop
+  [24] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_4),  // mac desktop
+  [25] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_5),  // mac desktop
+  [26] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_6),  // mac desktop
+  [27] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_7),  // mac desktop
+  [28] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_8),  // mac desktop
+  [29] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_9),  // mac desktop
+  [EV_D]  =  ACTION_LAYER_TAP_KEY(_DIGITS, KC_D),    // _DIGITS or D
+  [EV_S]  =  ACTION_LAYER_TAP_KEY(_SYMBOLS, KC_S),   // _SYMBOLS or S
+  [EV_B]  =  ACTION_LAYER_TAP_KEY(_BRACES, KC_B),    // _BRACES or B
+  [EV_F]  =  ACTION_LAYER_TAP_KEY(_FUNCTIONS, KC_F), // _FUNCTIONS or F
+  [EV_W]  =  ACTION_LAYER_TAP_KEY(_WINDOWS, KC_W),   // _WINDOWS or W
+
+  [EV_L]  =  ACTION_BACKLIGHT_STEP(),                 //
+  [EV_C]  =  ACTION_MODS_TAP_KEY(MOD_LCTL, KC_TAB )   //
 };
 
