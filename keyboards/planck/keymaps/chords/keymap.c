@@ -20,12 +20,14 @@ extern keymap_config_t keymap_config;
 #define _SYMBOLS   22
 #define _BRACES    23
 #define _WINDOWS   24
+#define _ARROWS    25
 
 #define EV_D    100
 #define EV_S    101
 #define EV_B    102
 #define EV_F    103
 #define EV_W    104
+#define EV_A    105
 
 #define EV_L    110
 #define EV_C    111
@@ -49,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = {
   {KC_ESC,  KC_Q,    F(EV_W),    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {F(EV_C), KC_A,   F(EV_S), F(EV_D), F(EV_F),    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT},
+  {F(EV_C), F(EV_A), F(EV_S), F(EV_D), F(EV_F),    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V, F(EV_B),    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_RSFT},
   {F(EV_L), KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC,   KC_SPC,  KC_SPC,  KC_ENT,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
@@ -144,6 +146,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, F(20),  _______, _______, _______, _______}
 },
 
+/* Arrows
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      | PDown| PUp  |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      | Left | Down |  Up  |Right |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      | Home | End  |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ */
+[_ARROWS] = {
+  {_______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
@@ -227,6 +247,7 @@ const uint16_t PROGMEM fn_actions[] = {
   [EV_B]  =  ACTION_LAYER_TAP_KEY(_BRACES, KC_B),    // _BRACES or B
   [EV_F]  =  ACTION_LAYER_TAP_KEY(_FUNCTIONS, KC_F), // _FUNCTIONS or F
   [EV_W]  =  ACTION_LAYER_TAP_KEY(_WINDOWS, KC_W),   // _WINDOWS or W
+  [EV_A]  =  ACTION_LAYER_TAP_KEY(_ARROWS, KC_A),    // _ARROWS or A
 
   [EV_L]  =  ACTION_BACKLIGHT_STEP(),                 //
   [EV_C]  =  ACTION_MODS_TAP_KEY(MOD_LCTL, KC_TAB )   //
