@@ -28,6 +28,13 @@ extern uint8_t is_master;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  DIGITS,
+  FUNCTIONS,
+  SYMBOLS,
+  BRACES,
+  WINDOWS,
+  ARROWS,
+  GAPS,
   LOWER,
   RAISE,
   ADJUST,
@@ -141,17 +148,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LALT,  KC_LGUI, KC_ENT,  KC_SPC,  KC_BSPC,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
-  [_RAISE] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE,  KC_GRV,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \
-                                      //`--------------------------'  `--------------------------'
   )
+
+  /* [_LOWER] = LAYOUT( \ */
+  /* //,-----------------------------------------------------.                    ,-----------------------------------------------------. */
+  /*      KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6, KC_PGDN, KC_PGUP,    KC_9,    KC_0, KC_BSPC,\ */
+  /* //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------| */
+  /*     KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX, XXXXXXX,\ */
+  /* //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------| */
+  /*     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_HOME,  KC_END, XXXXXXX, XXXXXXX, XXXXXXX,\ */
+  /* //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------| */
+  /*                                         KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \ */
+  /*                                     //`--------------------------'  `--------------------------' */
+  /*   ), */
+
+  /* [_RAISE] = LAYOUT( \ */
+  /* //,-----------------------------------------------------.                    ,-----------------------------------------------------. */
+  /*      KC_ESC, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,\ */
+  /* //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------| */
+  /*     KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE,  KC_GRV,\ */
+  /* //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------| */
+  /*     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,\ */
+  /* //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------| */
+  /*                                         KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \ */
+  /*                                     //`--------------------------'  `--------------------------' */
+  /* ) */
 
 };
 
@@ -165,6 +186,21 @@ void oled_task_user(void) {
     case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
       break;
+    case _BRACES:
+      oled_write_P(PSTR("Braces\n"), false);
+      break;
+    case _GAPS:
+      oled_write_P(PSTR("Gaps\n"), false);
+      break;
+    case _ARROWS:
+      oled_write_P(PSTR("Arrows\n"), false);
+      break;
+    case _WINDOWS:
+      oled_write_P(PSTR("Windows\n"), false);
+      break;
+    case _SYMBOLS:
+      oled_write_P(PSTR("Symbols\n"), false);
+      break;
     case _DIGITS:
       oled_write_P(PSTR("Digits\n"), false);
       break;
@@ -173,7 +209,7 @@ void oled_task_user(void) {
       break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR("Undefined"), false);
+      oled_write_ln_P(PSTR("PressMe"), false);
   }
 
   // Host Keyboard LED Status
@@ -314,5 +350,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       break;
   }
-  return true;
+ return true;
 }
