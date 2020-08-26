@@ -35,9 +35,9 @@ enum custom_keycodes {
   WINDOWS,
   ARROWS,
   GAPS,
+  ADJUST,
   LOWER,
   RAISE,
-  ADJUST,
   BACKLIT,
   RGBRST
 };
@@ -181,7 +181,7 @@ int RGB_current_mode;
 #ifdef OLED_DRIVER_ENABLE
 void oled_task_user(void) {
   // Host Keyboard Layer Status
-  oled_write_P(PSTR("Layer: "), false);
+  oled_write_P(PSTR("DGD Layer: "), false);
   switch (get_highest_layer(layer_state)) {
     case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
@@ -209,7 +209,7 @@ void oled_task_user(void) {
       break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR("PressMe"), false);
+      oled_write_ln_P(PSTR("PressMe\n"), false);
   }
 
   // Host Keyboard LED Status
@@ -306,24 +306,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
+    /* case LOWER: */
+    /*   if (record->event.pressed) { */
+    /*     layer_on(_LOWER); */
+    /*     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST); */
+    /*   } else { */
+    /*     layer_off(_LOWER); */
+    /*     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST); */
+    /*   } */
+    /*   return false; */
+    /* case RAISE: */
+    /*   if (record->event.pressed) { */
+    /*     layer_on(_RAISE); */
+    /*     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST); */
+    /*   } else { */
+    /*     layer_off(_RAISE); */
+    /*     update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST); */
+    /*   } */
+    /*   return false; */
     case ADJUST:
         if (record->event.pressed) {
           layer_on(_ADJUST);
